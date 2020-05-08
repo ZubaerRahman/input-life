@@ -1,0 +1,26 @@
+{% extends 'myblog/base.html' %}
+{% block content %}
+
+<div class="button" style="margin-left:20%;margin-right:70%;">
+        <a href="{% url 'myblog:write' %}"><button class="btn btn-lg btn-primary btn-block" style="background-color:#343a40!important; border-color:#343a40!important;font-size:0.70em;">Add new entry</button></a>
+</div>
+    {% for entry in diary reversed%}
+
+    <br>
+
+    <div class="card mb-4" style="margin-left:20%; margin-right:20%">
+<!--              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
+              <div class="card-body">
+                  <div><h4 class="card-title" style="display:inline">{{ entry.subject }}</h4> <strong>-</strong> <h6 style="display:inline"> {{ entry.date_time }} </h6> <small style="float:right;font-style:italic;">Last updated: {{ entry.last_update }}</small></div>
+                  <br>
+                    <p class="card-text">{{ entry.entry|linebreaks }}</p>
+                  <a href="{% url 'myblog:edit' entry.id %}" class="btn btn-primary" style="background-color:#343a40!important; border-color:#343a40!important;float:right;"><span style="font-size:0.9rem">Edit →</span></a>
+              </div>
+     </div>
+
+    {% empty %}
+    You have no entries. Click <a href="{% url 'myblog:write' %}">here </a>to get started!
+
+    {% endfor %}
+
+{% endblock %}
